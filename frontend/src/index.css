@@ -1,0 +1,629 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --bg-primary: #87CEEB; /* Sky blue */
+  --bg-secondary: #FFFACD; /* Light cheese yellow */
+  --bg-card: #FFFACD; /* Changed from White to Soft Yellow */
+  --bg-card-hover: #F0E68C; /* Khaki/cheese */
+  --accent-cyan: #FFD700; /* Gold */
+  --accent-purple: #FF4500; /* Orange Red */
+  --accent-orange: #FF8800;
+  --accent-green: #32CD32; /* Lime Green */
+  --accent-red: #DC143C; /* Crimson */
+  --accent-yellow: #FFD700;
+  --text-primary: #333333; /* Dark gray for text */
+  --text-secondary: #555555;
+  --text-muted: #777777;
+  --border: #333333;
+  --border-glow: rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 0px transparent;
+  --shadow-card: 6px 6px 0px rgba(0, 0, 0, 0.15); /* Cartoon harsh shadow */
+  --gradient-primary: linear-gradient(135deg, #87CEEB 0%, #E0F6FF 100%);
+  --gradient-accent: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%);
+  --gradient-danger: linear-gradient(135deg, #FF4500 0%, #DC143C 100%);
+  --gradient-success: linear-gradient(135deg, #32CD32 0%, #228B22 100%);
+  --police-bar: #DC143C;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse at center, #333333 0%, #050508 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--text-primary);
+  font-family: 'Nunito', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbars ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 3px; }
+
+/* ── Utility classes ── */
+.font-mono { font-family: 'Space Mono', monospace; }
+.font-game { font-family: 'Fredoka One', cursive; letter-spacing: 1px; }
+
+.glow-cyan { text-shadow: 2px 2px 0px #000; }
+.glow-purple { text-shadow: 2px 2px 0px #000; }
+.glow-box { box-shadow: var(--shadow-glow); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border: 4px solid var(--border);
+  border-radius: 12px;
+  font-family: 'Fredoka One', cursive;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.1);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.btn:hover::before { opacity: 1; }
+.btn:hover { transform: translateY(-2px) scale(1.02); }
+.btn:active { transform: translateY(0) scale(0.98); }
+
+.btn-primary {
+  background: var(--gradient-accent);
+  color: #fff;
+  box-shadow: 4px 4px 0px #000;
+}
+.btn-danger {
+  background: var(--gradient-danger);
+  color: #fff;
+  box-shadow: 4px 4px 0px #000;
+}
+.btn-success {
+  background: var(--gradient-success);
+  color: #fff;
+  box-shadow: 4px 4px 0px #000;
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); }
+.btn-lg { padding: 16px 40px; font-size: 17px; }
+.btn-sm { padding: 8px 16px; font-size: 12px; }
+
+/* ── Glassmorphism card ── */
+.glass-card {
+  background: var(--bg-card);
+  border: 4px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* ── Animations ── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(100%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%     { transform: translateX(-8px); }
+  40%     { transform: translateX(8px); }
+  60%     { transform: translateX(-5px); }
+  80%     { transform: translateX(5px); }
+}
+@keyframes pulse-glow {
+  0%,100% { box-shadow: 0 0 10px rgba(0, 212, 255, 0.3); }
+  50%     { box-shadow: 0 0 30px rgba(0, 212, 255, 0.7); }
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes countdown {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: 283; }
+}
+@keyframes bounce-in {
+  0%   { transform: scale(0) rotate(-10deg); opacity: 0; }
+  60%  { transform: scale(1.1) rotate(3deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+@keyframes float {
+  0%,100% { transform: translateY(0px); }
+  50%     { transform: translateY(-10px); }
+}
+@keyframes police-flash {
+  0%,100% { opacity: 1; }
+  50%     { opacity: 0.4; }
+}
+@keyframes road-scroll {
+  from { background-position-x: 0; }
+  to   { background-position-x: -100px; }
+}
+@keyframes star-flicker {
+  0%,100% { opacity: 0.3; }
+  50%     { opacity: 1; }
+}
+.anim-fadeIn    { animation: fadeIn 0.5s ease forwards; }
+.anim-slideUp   { animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.anim-bounceIn  { animation: bounce-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.anim-float     { animation: float 3s ease-in-out infinite; }
+.anim-shake     { animation: shake 0.4s ease forwards; }
+.anim-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+/* ── Game layout ── */
+.game-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row; /* Ensure side-by-side */
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+/* ── HUD ── */
+.hud {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 10;
+  background: linear-gradient(to bottom, rgba(10,10,15,0.95), transparent);
+}
+.hud-stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card);
+  border: 3px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 14px;
+  box-shadow: 3px 3px 0px rgba(0,0,0,0.1);
+}
+.hud-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+.hud-value {
+  font-family: 'Fredoka One', cursive;
+  font-size: 18px;
+  color: var(--accent-purple);
+}
+
+/* ── Police proximity bar ── */
+.police-bar-container {
+  flex: 1;
+  max-width: 300px;
+}
+.police-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.police-bar-track {
+  height: 8px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.police-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease, background 0.3s ease;
+}
+
+/* ── Wrong counter ── */
+.wrong-counter {
+  display: flex;
+  gap: 6px;
+}
+.wrong-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--text-muted);
+  transition: all 0.3s;
+}
+.wrong-dot.filled {
+  background: var(--accent-red);
+  border-color: var(--accent-red);
+  box-shadow: 0 0 8px var(--accent-red);
+}
+
+/* ── Split layout panels ── */
+.game-wrapper {
+  display: flex;
+  flex-direction: column-reverse; /* Game top, Code bottom for mobile */
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden !important;
+}
+
+.game-left-panel {
+  width: 100%;
+  height: 65%; /* Bottom half for code on mobile */
+  box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-secondary);
+  border-top: 4px solid var(--border);
+  z-index: 10;
+}
+
+.game-right-panel {
+  flex: 1;
+  height: 35%; /* Top half for game on mobile */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Laptop (width > 992px) */
+@media (min-width: 992px) {
+  .game-wrapper {
+    flex-direction: row; /* Code left, Game right */
+  }
+
+  .game-left-panel {
+    width: 420px;
+    height: 100vh;
+    border-top: none;
+    border-right: 4px solid var(--border);
+    box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+  }
+
+  .game-right-panel {
+    height: 100vh;
+  }
+}
+
+.diff-container {
+  display: flex;
+  gap: 10px;
+}
+
+/* Mobile specific font scaling (35% smaller approximately) */
+@media (max-width: 768px) {
+  .diff-container { flex-direction: column; }
+  .hud-spacer { display: none !important; }
+  .font-game { font-size: 0.75em !important; }
+  .hud {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    padding: 6px 10px !important;
+    gap: 6px !important;
+  }
+  .hud-stat { padding: 4px 6px !important; justify-content: center; min-width: 60px; }
+  .hud-label { font-size: 8px !important; }
+  .hud-value { font-size: 13px !important; }
+  .btn { padding: 8px 14px !important; font-size: 12px !important; }
+  .btn-sm { padding: 6px 10px !important; font-size: 11px !important; }
+  .qp-title { font-size: 13px !important; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .question-desc { font-size: 11px !important; line-height: 1.2 !important; max-height: 60px; overflow-y: auto; }
+  .question-side-panel { padding: 8px !important; gap: 6px !important; }
+  .qp-meta { gap: 8px !important; align-items: center !important; }
+  .timer-svg { width: 50px !important; height: 50px !important; }
+  .timer-svg text { font-size: 18px !important; }
+  .timer-rings svg { width: 50px !important; height: 50px !important; }
+  .ques-left-top { display: flex; align-items: center; gap: 10px; width: 100%; }
+  .main-logo { 
+    font-size: 52px !important; 
+    background: linear-gradient(135deg, #FFD700 0%, #FF4500 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    letter-spacing: 2px !important;
+  }
+  .glass-card {
+    padding: 10px 14px !important;
+    width: 95% !important;
+    margin: 0 auto;
+    border-width: 2px !important;
+  }
+  .diff-btn {
+    padding: 8px 4px !important;
+    font-size: 11px !important;
+  }
+  .diff-btn div:first-of-type { font-size: 16px !important; } /* Icon */
+  .diff-btn div:last-of-type { font-size: 8px !important; }   /* Description */
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+/* ── Question Side Panel (left column content) ── */
+.question-side-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px;
+  gap: 12px;
+  overflow: hidden;
+}
+.qp-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.qp-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 18px;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+.qp-meta {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+/* ── Old overlay styles kept as fallback ── */
+.question-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(8px);
+  z-index: 20;
+  display: flex;
+  align-items: flex-end;
+}
+.question-panel {
+  width: 100%;
+  height: 70vh;
+  background: var(--bg-secondary);
+  border-top: 2px solid rgba(0, 212, 255, 0.3);
+  display: flex;
+  gap: 0;
+  animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.question-left {
+  width: 340px;
+  min-width: 300px;
+  padding: 24px;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
+.question-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.question-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.question-desc {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.difficulty-easy   { background: rgba(34,197,94,0.15);  color: var(--accent-green);  border: 1px solid rgba(34,197,94,0.3); }
+.difficulty-medium { background: rgba(234,179,8,0.15);  color: var(--accent-yellow); border: 1px solid rgba(234,179,8,0.3); }
+.difficulty-hard   { background: rgba(239,68,68,0.15);  color: var(--accent-red);    border: 1px solid rgba(239,68,68,0.3); }
+
+/* ── Timer ring ── */
+.timer-ring-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.timer-ring { transform: rotate(-90deg); }
+.timer-ring-bg   { fill: none; stroke: rgba(255,255,255,0.05); stroke-width: 6; }
+.timer-ring-fill { fill: none; stroke-width: 6; stroke-linecap: round; transition: stroke 0.3s; }
+.timer-text {
+  font-family: 'Fredoka One', cursive;
+  font-size: 24px;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+.timer-sublabel { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing:1px; }
+
+/* ── Editor toolbar ── */
+.editor-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-card);
+}
+
+/* ── Game Over / Menu screens ── */
+.screen-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at center, #333333 0%, #050508 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  gap: clamp(8px, 2vh, 24px);
+}
+
+/* ── Leaderboard ── */
+.leaderboard-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(10px);
+}
+.leaderboard-card {
+  width: 480px;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 32px;
+  border-radius: 20px;
+  background: #FFA500; /* Vivid orange */
+  border: 4px solid var(--border);
+  box-shadow: 8px 8px 0px rgba(0,0,0,0.2);
+  animation: fadeIn 0.3s ease;
+}
+.lb-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  background: #FFCC00; /* Bright yellow rows */
+  border: 2px solid #D2691E;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+  color: #333;
+}
+.lb-row:hover { 
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0px rgba(0,0,0,0.15); 
+}
+.lb-rank {
+  font-family: 'Fredoka One', cursive;
+  font-size: 20px;
+  width: 32px;
+  text-align: center;
+}
+
+/* ── Result flash ── */
+.result-flash {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  padding: 12px 32px;
+  border-radius: 12px;
+  font-family: 'Fredoka One', cursive;
+  font-size: 14.8px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  white-space: nowrap;
+  animation: fadeIn 0.3s ease, fadeOut 0.5s ease 1.5s forwards;
+  pointer-events: none;
+}
+
+@media (max-width: 992px) {
+  .result-flash {
+    font-size: 11.5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .result-flash {
+    font-size: 8.2px !important;
+    padding: 8px 16px !important;
+  }
+}
+.result-flash.correct {
+  background: #E8F5E9;
+  border: 4px solid var(--accent-green);
+  color: var(--accent-green);
+  box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+}
+.result-flash.wrong {
+  background: #FFEBEE;
+  border: 4px solid var(--accent-red);
+  color: var(--accent-red);
+  box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+}
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* ── Canvas container ── */
+.canvas-container {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+canvas { display: block; width: 100%; height: 100%; }
+
+/* ── Input ── */
+.game-input {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 16px;
+  color: var(--text-primary);
+  font-size: 15px;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.2s;
+}
+.game-input:focus {
+  outline: none;
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+}
+
+/* ── Stars background ── */
+.stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  animation: star-flicker 2s ease-in-out infinite;
+}
