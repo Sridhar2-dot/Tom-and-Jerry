@@ -7,11 +7,11 @@ RUN apk add --no-cache python3
 WORKDIR /app
 
 # Install dependencies
-COPY package*.json ./
+COPY backend/package*.json ./
 RUN npm install
 
 # Copy application code
-COPY . .
+COPY backend/ .
 
 # Expose API port
 EXPOSE 3001
